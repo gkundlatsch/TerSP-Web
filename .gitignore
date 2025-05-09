@@ -4,8 +4,6 @@ __pycache__/
 venv/
 .env
 
-*.joblib
-
 .vscode/
 .idea/
 .DS_Store
