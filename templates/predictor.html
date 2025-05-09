@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TerSP – Terminator Strength Predictor</title>
+    <style>
+        body { font-family: Arial,sans-serif; max-width:800px; margin:0 auto; padding:20px; }
+        .form-group { margin-bottom:15px; }
+        label { display:block; margin-bottom:5px; font-weight:bold; }
+        input { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; }
+        button { background:#4CAF50; color:#fff; padding:10px 15px; border:none; border-radius:4px; cursor:pointer; }
+        .note { font-size:0.9em; color:#666; margin-top:5px; }
+        .footer { margin-top:40px; font-size:0.8em; color:#666; }
+    </style>
+</head>
+<body>
+    <h1>TerSP – Terminator Strength Predictor</h1>
+    <h2>Machine learning-driven prediction of rho-independent terminator strength</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="a_tract">A-tract (8 nucleotides before the hairpin):</label>
+            <input type="text" id="a_tract" name="a_tract" required
+                   pattern="[ACGTU]{8}" maxlength="8"
+                   title="8 nt (A,C,G,T/U only)"
+                   placeholder="e.g. ACUUAAGA">
+            <div class="note">All Ts are converted to Us automatically</div>
+        </div>
+
+        <div class="form-group">
+            <label for="first_half">First half of the hairpin:</label>
+            <input type="text" id="first_half" name="first_half" required
+                   pattern="[ACGTU]{3,24}" maxlength="24"
+                   title="3–24 nt (A,C,G,T/U only)"
+                   placeholder="e.g. ACUGGA">
+        </div>
+
+        <div class="form-group">
+            <label for="loop">Loop (3 to 16 nucleotides):</label>
+            <input type="text" id="loop" name="loop" required
+                   pattern="[ACGTU]{3,16}" maxlength="16"
+                   title="3–16 nt (A,C,G,T/U only)"
+                   placeholder="e.g. GUAA">
+        </div>
+
+        <div class="form-group">
+            <label for="second_half">Second half of the hairpin (automatically generated based on the first one):</label>
+            <input type="text" id="second_half" name="second_half" readonly
+                   placeholder="Reverse-complement of first half">
+        </div>
+
+        <div class="form-group">
+            <label for="u_tract">U-tract (12 nucleotides after the hairpin):</label>
+            <input type="text" id="u_tract" name="u_tract" required
+                   pattern="[ACGTU]{12}" maxlength="12"
+                   title="12 nt (A,C,G,T/U only)"
+                   placeholder="e.g. UUUUCUUUUCUC">
+        </div>
+
+        <button type="submit">Predict Strength</button>
+    </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const compMap = { A:'U', C:'G', G:'C', U:'A' };
+      const first = document.getElementById('first_half');
+      const second = document.getElementById('second_half');
+      const fields = document.querySelectorAll('input[type="text"]');
+
+      // Universal T→U + uppercase
+      fields.forEach(inp => {
+        inp.addEventListener('input', () => {
+          inp.value = inp.value.toUpperCase().replace(/T/g,'U');
+          inp.style.borderColor = inp.value ? '#4CAF50' : '#ddd';
+          setTimeout(()=> inp.style.borderColor = '#ddd', 500);
+
+          // If this is the first half, update second_half
+          if (inp.id === 'first_half') {
+            const revComp = inp.value
+              .split('').reverse()
+              .map(nt => compMap[nt] || '?')
+              .join('');
+            second.value = revComp;
+          }
+        });
+      });
+    });
+    </script>
+
+    <div class="footer">
+              <p>Developed by Guilherme E. Kundlatsch under supervision of Prof. Danielle B. Pedrolli, Prof. Elibio Leopoldo Rech Filho and Prof. Leonardo Tomazeli Duarte.</p>
+              <p>The data used to train this model was originally published by Chen et al. in Nature Methods: Chen, Y.J., Liu, P., Nielsen, A., et al. (2013). Characterization of 582 natural and synthetic terminators and quantification of their design constraints. Nature Methods, 10, 659–664.</p>
+              <p>This work was funded by the São Paulo State Foundation (FAPESP) grants 2023/02133-0 and 2020/09838-0, the National Council for Scientific and Technological Development (CNPq) grants 305324/2023-3 and 405953/2024-0, and the National Institute of Science and Technology – Synthetic Biology (CNPq/FAP-DF) grant 465603/2014-9.</p>
+    </div>
+</body>
+</html>

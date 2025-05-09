@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Terminator Strength Result</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+        line-height: 1.5;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 0.5em;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        padding: 1em;
+        margin-bottom: 1.5em;
+      }
+      p {
+        margin: 0.5em 0;
+      }
+      a.button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 1em;
+      }
+      a.button:hover {
+        background-color: #45A049;
+      }
+      .footer {
+        margin-top: 3em;
+        font-size: 0.8em;
+        color: #666;
+        border-top: 1px solid #eee;
+        padding-top: 1em;
+      }
+    </style>
+</head>
+<body>
+    <h1>Prediction Complete</h1>
+
+    <div class="card">
+        <p>The terminator is: <strong>{{ result }}</strong></p>
+        <p>Predicted strength: <strong>{{ strength }}</strong></p>
+    </div>
+
+    <a href="/" class="button">Test Another Sequence</a>
+
+    <div class="footer">
+      <p>Developed by Guilherme E. Kundlatsch under supervision of Prof. Danielle B. Pedrolli, Prof. Elibio Leopoldo Rech Filho and Prof. Leonardo Tomazeli Duarte.</p>
+      <p>The data used to train this model was originally published by Chen et al. in Nature Methods: Chen, Y.J., Liu, P., Nielsen, A., et al. (2013). Characterization of 582 natural and synthetic terminators and quantification of their design constraints. Nature Methods, 10, 659–664.</p>
+      <p>This work was funded by the São Paulo State Foundation (FAPESP) grants 2023/02133-0 and 2020/09838-0, the National Council for Scientific and Technological Development (CNPq) grants 305324/2023-3 and 405953/2024-0, and the National Institute of Science and Technology – Synthetic Biology (CNPq/FAP-DF) grant 465603/2014-9.</p>
+    </div>
+</body>
+</html>
