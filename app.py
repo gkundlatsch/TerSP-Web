@@ -103,7 +103,7 @@ def calculate_features(a_tract, u_tract, stem, loop):
         '%GC_Loop':                   features['%GC_Loop'],
         'Entropia_A_tract':           features['Entropia_A_tract']     / 2,
         'Entropia_U_tract':           features['Entropia_U_tract']     / 2,
-        'Entropia_HP_S_Loop':         features['Entropia_HP_S_Loop']   / 2,
+        'Entropia_HP_S_Loop':         (features['Entropia_HP_S_Loop']- 0.998000884)  / (2.0 - 0.998000884),
         'A_Tract_state-change':       features['A_Tract_state-change'] / 7,
         'U_Tract_state-change':       features['U_Tract_state-change'] / 11,
         'HP_S_Loop_state_change':     (features['HP_S_Loop_state_change'] - 2) / (34 - 2),
