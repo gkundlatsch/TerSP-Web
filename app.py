@@ -8,9 +8,11 @@ app = Flask(__name__)
 # Load trained model
 model_data = load("terminator_strength_predictor.joblib")
 model = model_data["model"]
+print(f"[DEBUG] Model MD5 checksum: {hashlib.md5(open(path,'rb').read()).hexdigest()}")
+print("[DEBUG] Model params:", model.get_params())
 
 def calculate_features(a_tract, u_tract, stem, loop):
-    """Calculate all 17 features from:
+    """Calculate all 16 features from:
        - a_tract: 8 nt A-tract
        - u_tract: 12 nt U-tract
        - stem: concatenation of first_half + second_half (no loop)
@@ -136,7 +138,11 @@ def home():
             # Build stem and compute features
             stem = first_half + second_half
             feats = calculate_features(a_tract, u_tract, stem, loop)
+            print("[DEBUG] Raw features dict:", feats)
             df    = pd.DataFrame([feats])
+            print("[DEBUG] DataFrame to predict:")
+            print(df.T)         # transpose so you can eyeball each feature name + value
+            print("[DEBUG] Column order:", df.columns.tolist())
             strength = model.predict(df)[0]
             result   = "STRONG" if strength >= 40 else "WEAK"
 
