@@ -109,7 +109,9 @@ def calculate_features(a_tract, u_tract, stem, loop):
         'HP_S_Loop_state_change':     (features['HP_S_Loop_state_change'] - 2) / (34 - 2),
         'GC_Inicial_Hairpin':         features['GC_Inicial_Hairpin']   / 12
     }
-
+    # ── CLIP every normalized value into [0,1] ──
+    for k, v in normalized.items():
+        normalized[k] = min(max(v, 0.0), 1.0)
     return normalized
 
 @app.route('/', methods=['GET', 'POST'])
