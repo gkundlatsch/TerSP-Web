@@ -9,7 +9,6 @@ app = Flask(__name__)
 # Load trained model
 model_data = load("terminator_strength_predictor.joblib")
 model = model_data["model"]
-print(f"[DEBUG] Model MD5 checksum: {hashlib.md5(open(path,'rb').read()).hexdigest()}")
 print("[DEBUG] Model params:", model.get_params())
 
 def calculate_features(a_tract, u_tract, stem, loop):
