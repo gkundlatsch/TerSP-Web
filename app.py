@@ -7,7 +7,7 @@ import hashlib
 app = Flask(__name__)
 
 # Load trained model
-model_data = load("terminator_strength_predictor.joblib")
+model_data = load("terminator_strength_predictor_v2.joblib")
 model = model_data["model"]
 print("[DEBUG] Model params:", model.get_params())
 
