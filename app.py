@@ -145,10 +145,12 @@ def home():
             print("[DEBUG] Column order:", df.columns.tolist())
             strength = model.predict(df)[0]
             result   = "STRONG" if strength >= 40 else "WEAK"
+            termination_efficiency = 100 * (1 - (1 / strength)) if strength != 0 else 0
 
             return render_template(
                 'result.html',
                 strength=f"{strength:.2f}",
+                termination_efficiency=f"{termination_efficiency:.2f}",
                 result=result,
                 a_tract=a_tract,
                 u_tract=u_tract,
